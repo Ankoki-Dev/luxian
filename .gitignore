@@ -1,0 +1,5 @@
+.env
+.idea
+luxian.iml
+# Project exclude paths
+/node_modules/
