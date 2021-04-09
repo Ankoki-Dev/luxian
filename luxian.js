@@ -1,4 +1,5 @@
 const Discord = require('discord.js')
+const mineflayer = require('mineflayer')
 require('dotenv').config()
 
 const client = new Discord.Client()
@@ -33,6 +34,7 @@ client.on('message', msg => {
                     )
                     .setTimestamp()
                 msg.channel.send(testEmbed)
+                break
             case 'reply':
                 msg.reply('If you insist :p')
                 break
@@ -55,5 +57,30 @@ client.on('message', msg => {
         }
     }
 })
+
+const bot = mineflayer.createBot({
+    host: process.env.HOST,
+    username: process.env.EMAIL,
+    password: process.env.PASSWORD
+})
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+bot.on('spawn', () => {
+    console.log('joined!')
+    setInterval(async function() {
+        bot.chat('⊽')
+        await delay(2000)
+        bot.chat('work that bussy mawmaw')
+        bot.swingArm()
+    }, 5000)
+})
+
+bot.on('messagestr', (message, username) => {
+    console.log(username + ": " + message)
+})
+
+bot.on('kicked', console.log)
+bot.on('error', console.log)
 
 client.login(process.env.TOKEN)
